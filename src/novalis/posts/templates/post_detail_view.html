@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% load dict_key %}
+{% load static %}
+
+
+<div class="container">
+        <div class="sidenav" >
+            {% for item in sections %}
+            {% if item.id == section.id %}
+                <a style="color: #f1f1f1" href={{ section.get_absolute_url }}>{{ item.name }}</a>
+            {% else %}
+                <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+            {% endif %}
+            {% endfor %}
+          <a href="/new-section" style="color:#9ba4b4"> Create new Section </a>
+        </div>
+
+
+    <div class="main">
+
+        <!--POST ENTRY -->
+
+        <div class="post-container">
+            <p class="headline">{{ post.title }}</p>
+            {% autoescape off %}
+            <p>{{ post.text }}</p>
+            {% endautoescape %}
+            <p class="secondary">Created by {{ post_creator }} - {{ post.date }}</p>
+
+            <!--POST EDITS & LIKES-->
+
+            {% if user.id == post.user_id %}
+                <div class="d-grid gap-2 d-md-flex">
+                    <form action="{% url 'posts:post-update' pk=post.id %}" method="GET">{% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-link-comments">edit post</button>
+                    </form>
+
+                    <form action="{% url 'posts:post-delete' pk=post.id %}" method="GET">{% csrf_token %}
+                           <button type="submit" class="btn btn-sm btn-link-comments ">delete post</button>
+                    </form>
+                </div>
+                <br>
+                    {% if post.count_likes == 1 %}
+                    <p>{{ post.count_likes }} colleague found this helpful</p>
+                    {% elif post.count_likes > 1%}
+                    <p>{{ post.count_likes }} colleagues found this helpful</p>
+                    {% endif %}
+
+            {% else %}
+             <div class="d-grid gap-2 d-md-flex">
+                 <form action = "{{request.path}}like/" method="POST">{% csrf_token %}
+                    <input type="hidden" name="obj" value="post"/>
+                    <input type="hidden" name="path" value="{{request.path}}"/>
+                    <button type="submit" class="btn btn-outline-dark like-comment btn-sm"><i class="fas fa-hands-helping"></i></button>
+                 </form>
+                 <br>
+                 {% if post.count_likes == 1 %}
+                    <p>{{ post.count_likes }} colleague found this helpful</p>
+                    {% elif post.count_likes > 1%}
+                    <p>{{ post.count_likes }} colleagues found this helpful</p>
+                 {% endif %}
+
+             </div>
+            {% endif %}
+
+             <div class="mb-4">
+                <hr class="solid">
+             </div>
+
+        </div>
+        <!--COMMENTS-->
+
+        {% if comments %}
+            {% for key, value in comments.items %}
+            <div class="comment-container">
+            {% if key.id|stringformat:"i" == to_edit_comment_id %}
+
+                <form action = '.' method ='POST'>{% csrf_token %}
+                    {% for field in comment_update_form %}
+                        {{ field|as_crispy_field }}
+                     {% endfor %}
+                     <div class="d-grid gap-2 d-md-flex">
+                        <input type="hidden" name="user has performed" value="edit comment"/>
+                        <input type="hidden" name="edited_comment_id" value="{{key.id}}"/>
+                        <button type="submit" class="btn btn-dark btn-sm">update comment</button>
+                        <button class="btn btn-light btn-sm" onClick="history.go(0);">cancel</button>
+                     </div>
+                </form>
+
+            {% else %}
+
+                <p>{{key.text }}</p>
+                <p class="secondary">{{ value }} - {{ key.date }}</p>
+
+
+                <!-- EDIT AND DELETE COMMENT-->
+                {% if user.id == key.user_id %}
+
+                <div class="d-grid gap-2 d-md-flex">
+                        <form action = "." method="POST">{% csrf_token %}
+                            <input type="hidden" name="to_edit_comment_id" value="{{key.id}}"/>
+                            <input type="hidden" name="user wants" value="edit comment"/>
+                            <button type="submit" class="btn btn-sm btn-link-comments">edit</button>
+                        </form>
+
+                        <form action = "." method="POST">{% csrf_token %}
+                            <input type="hidden" name="to_delete_comment_id" value="{{key.id}}"/>
+                            <input type="hidden" name="user wants" value="delete comment"/>
+                            <button type="submit" class="btn btn-sm btn-link-comments ">delete</button>
+                        </form>
+                </div>
+
+                {% endif %}
+
+        {% endif %}
+        <p></p>
+
+        <!--COMMENT LIKES-->
+        {% if user.id == key.user_id %}
+            {% if key.count_likes == 1%}
+            <p>{{ key.count_likes }} colleague found this helpful</p>
+            {% elif key.count_likes > 1%}
+            <p>{{ key.count_likes }} colleagues found this helpful</p>
+            {% endif %}
+
+        {% else %}
+            <div class="d-grid gap-2 d-md-flex">
+            <form action = "{{request.path}}like/" method="POST">{% csrf_token %}
+                    <input type="hidden" name="obj" value="{{key.id}}"/>
+                    <input type="hidden" name="path" value="{{request.path}}"/>
+                <button type="submit" class="btn like btn-sm"><i class="fas fa-hands-helping"></i></button>
+            </form>
+            {% if key.count_likes == 1%}
+            <p>{{ key.count_likes }} colleague found this helpful</p>
+            {% elif key.count_likes > 1%}
+            <p>{{ key.count_likes }} colleagues found this helpful</p>
+            {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        <!--CREATE COMMENT-->
+        <form action = '.' method ='POST'>{% csrf_token %}
+            {% for field in form %}
+                {{ field|as_crispy_field }}
+            {% endfor %}
+            <button type="submit" class="btn btn-dark">post comment</button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

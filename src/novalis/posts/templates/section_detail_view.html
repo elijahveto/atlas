@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load dict_key %}
+
+<div class="container">
+        <div class="sidenav" >
+            {% for item in sections %}
+            {% if item.id == section.id %}
+                <a style="color: #f1f1f1" href={{ section.get_absolute_url }}>{{ item.name }}</a>
+            {% else %}
+                <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+            {% endif %}
+            {% endfor %}
+          <a href="/new-section" style="color:#9ba4b4"> Create new Section </a>
+        </div>
+
+        <!-- Page content -->
+        <div class="main">
+            <form action='../../create-post/' method='POST'>{% csrf_token %}
+                <input type='hidden' name="id" value={{section.id}} />
+<!--                <input type='' value='Create new Post' />-->
+                <button type="submit" class="btn btn-outline-dark post-create"><i class="fa fa-plus-circle"></i> Create new Post</button>
+            </form>
+
+<!--            {% for post in posts %}-->
+
+<!--            <h2><a href={{ post.get_absolute_url }}>{{ post.title|title }}</a></h2>-->
+<!--            {% autoescape off %}-->
+<!--            <p>{{ post.text }}</p>-->
+<!--             {% endautoescape %}-->
+<!--            {% endfor %}-->
+
+
+            {% for key, value in post_dic.items %}
+
+            <h2><a href={{ key.get_absolute_url }}>{{ key.title|title }}</a></h2>
+            {% autoescape off %}
+            <p>{{ value }} - {{ key.date }}</p>
+             {% endautoescape %}
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}

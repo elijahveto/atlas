@@ -1,0 +1,265 @@
+
+body#test {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+
+    background-color: black;
+    background-image: url('verlauf.svg');
+
+}
+
+div.absolute-center {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    opacity: 1;
+    visibility: visible;
+
+    transition: all 0.5s;
+}
+
+body {
+    color: black;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 300;
+}
+
+body#bg {
+  margin: 0;
+  height: 100%;
+  background-color: black;
+  background-image: url('black-bust.svg');
+  background-size: cover;
+  display: block;
+  position: center;
+  background-repeat:no-repeat;
+  border-style: : none;
+}
+
+.content {
+    margin-top:56px;
+}
+
+.navbar {
+    font-weight: 400;
+    top:0;
+    }
+
+.nvabar-dark {
+color: white;
+background-color: black;
+}
+
+
+/* The sidebar menu */
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 200px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  /*top: 0;  Stay at the top */
+  left: 0;
+  background-color: #111;  /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 200;
+  color: #818181;
+  display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.xpad {
+padding-left: 1.2%;
+padding-bottom: 2%;
+}
+
+#superuser.sidenav  {
+ padding-top: 5%;
+ padding-left: 6%;
+ width: 100%;
+ display: block;
+
+}
+
+/* Style page content */
+.main {
+  margin-left: 160px; /* Same as the width of the sidebar */
+  padding: 20px 10px;
+}
+
+. main h2 {
+  font-weight: 300;
+  font-size:2em;
+}
+
+h2 a {
+  text-decoration: none;
+  color: black;
+}
+
+h2 a:hover {
+    color:#394867;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.post-create {
+  width: 100%;
+  border-radius: 50px;
+  margin-top: 1%;
+  margin-bottom: 3%;
+}
+
+.btn-link {
+  font-weight: $font-weight-normal;
+  color: black;
+  background-color: #bbbfca;
+  text-decoration: none;
+
+  }
+
+
+.btn-link:visited {
+    color: black;
+    background-color: #bbbfca;
+    text-decoration: none;
+    border-color: transparent;
+  }
+
+.btn-link:hover {
+    color: black;
+    background-color: #9ba4b4;
+    text-decoration: none;
+    border-color: transparent;
+  }
+
+  /* Form Styling */
+
+.form-control-lg {
+    input-border-color:red;
+    input-color:blue;
+    color:red;
+    input-bg: blue;
+}
+
+.form-control {
+      padding-top:20px;
+      margin-bottom: 20px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #000000;
+      box-shadow: none;
+      border-radius: 0;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-bottom: 3px solid #9ba4b4;
+}
+
+    /* Post Detail Styling */
+
+.headline {
+    font-size: 3em;
+    font-weight: 300;
+    color: #495464;
+}
+
+.like {
+    background-color: #bbbfca;
+    color: black;
+    width: 100px;
+    border-radius: 50px;
+}
+
+.like-comment {
+    width: 100px;
+    border-radius: 50px;
+}
+
+/*.btn-sm {
+    width: 10%;
+    border-radius: 50px;
+}*/
+
+.post-container {
+    padding-bottom: 5%;
+}
+
+.comment-container {
+    padding-bottom: 2%;
+}
+
+
+.btn-link-comments {
+  font-weight: $font-weight-light;
+  color: #aaa6a4;
+  background-color: transparent;
+  text-decoration: none;
+  border-color: #aaa6a4;
+  }
+
+.solid {
+    color: #aaa6a4;
+}
+
+.secondary {
+    color:  #495464;
+    }
+
+.center-form {
+  top: 30%;
+  margin-left: 40%;
+  width: 20%;
+  position: fixed;
+
+}
+
+.company-check {
+    top: 20%;
+    margin-left: 40%;
+    width: 20%;
+    font-weight: 400;
+    font-size: 1em;
+    color:  #495464;
+    position: absolute;
+}
+
+.superuser {
+ width: 40%;
+ align: center;
+}
+
+#decline {
+ text-decoration: none;
+ color: black;
+}
+
+.custom-editor-wrapper {
+    border: none;
+    padding: 4px;
+    margin: 1rem;
+    max-width: 640px;
+    border-radius: 4px;
+    box-shadow: none;
+}

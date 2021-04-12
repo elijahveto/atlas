@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load dict_key %}
+
+<!--<body id="bg">-->
+    <div class="container">
+        <div class="sidenav" >
+            {% for section in sections %}
+          <a href="{{ section.get_absolute_url }}">{{ section.name }}</a>
+            {% endfor %}
+          <a href="/new-section" style="color:#9ba4b4"> Create new Section </a>
+        </div>
+
+         Page content
+        <div class="main">
+          <h3>What makes a great Post</h3>
+            <ul>
+                <li>Keep it short and precise</li>
+                <li>Avoid repetition</li>
+                <li>Keep it simple and easy to read</li>
+                <li>It does not have to be a novel, 4 bullet points can already help someone</li>
+            </ul>
+        </div>
+
+    </div>
+<!--</body>-->
+{% endblock %}

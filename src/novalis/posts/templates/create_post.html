@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block head %}
+    {{ block.super }}
+    {{ post_form.media }}
+{% endblock %}
+
+{% block content %}
+<script>
+   tinymce.init({
+        selector: 'textarea',
+        menubar: false,
+        plugins: "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code fullscreen insertdatetime media table paste code help wordcount spellchecker",
+        toolbar: "undo redo | bold italic underline strikethrough | formatselect | alignleft aligncenter alignjustify | outdent indent |  numlist bullist checklist | insertfile image  template link codesample a11ycheck ltr rtl | showcomments addcomment code",
+        force_br_newlines : false,
+        force_p_newlines : false,
+        forced_root_block : '',
+        branding: false,
+        statusbar : false,
+        setup: function (editor) {
+              editor.on('change', function () {
+                  editor.save();
+              });
+          },
+<!--        images_upload_handler: function (blobInfo, success, failure) {-->
+<!--            success('http://moxiecode.cachefly.net/tinymce/v9/images/logo.png');-->
+<!--        },-->
+file_picker_callback: function (cb, value, meta) {
+    var input = document.createElement('input');
+    input.setAttribute('type', 'file');
+    input.setAttribute('accept', 'image/*');
+
+    /*
+      Note: In modern browsers input[type="file"] is functional without
+      even adding it to the DOM, but that might not be the case in some older
+      or quirky browsers like IE, so you might want to add it to the DOM
+      just in case, and visually hide it. And do not forget do remove it
+      once you do not need it anymore.
+    */
+
+    input.onchange = function () {
+      var file = this.files[0];
+
+      var reader = new FileReader();
+      reader.onload = function () {
+        /*
+          Note: Now we need to register the blob in TinyMCEs image blob
+          registry. In the next release this part hopefully won't be
+          necessary, as we are looking to handle it internally.
+        */
+        var id = 'blobid' + (new Date()).getTime();
+        var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+        var base64 = reader.result.split(',')[1];
+        var blobInfo = blobCache.create(id, file, base64);
+        blobCache.add(blobInfo);
+
+        /* call the callback and populate the Title field with the file name */
+        cb(blobInfo.blobUri(), { title: file.name });
+      };
+      reader.readAsDataURL(file);
+    };
+      input.click();
+  },
+  });
+</script>
+<div class="container">
+        <div class="sidenav" >
+            {% for item in sections %}
+            {% if item.id == section.id %}
+                <a style="color: #f1f1f1" href={{ section.get_absolute_url }}>{{ item.name }}</a>
+            {% else %}
+                <a href="{{ item.get_absolute_url }}">{{ item.name }}</a>
+            {% endif %}
+            {% endfor %}
+          <a href="/new-section" style="color:#9ba4b4"> Create new Section </a>
+        </div>
+
+        <!-- Page content -->
+        <div class="main">
+            <form class='form' action='.' method="POST" enctype="multipart/form-data">{% csrf_token %}
+                <div class='row'>
+                            <div class='col-md-12'>
+                                {% for field in post_form %}
+                                {{ field|add_class:"form-control"|add_class:"form-control:focus"|as_crispy_field}}
+                                {% endfor %}
+                            </div>
+                </div>
+                  <input type='hidden' name="id" value="{{section_id}}" /><br>
+                <input class='btn btn-dark' type='submit' value="publish">
+            </form>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+

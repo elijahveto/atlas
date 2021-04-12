@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+        <div class="sidenav" >
+            {% for section in sections %}
+          <a href="{{ section.get_absolute_url }}">{{ section.name }}</a>
+            {% endfor %}
+          <a href="/new-section"> Create new Section </a>
+        </div>
+
+        <!-- Page content -->
+        <div class="main">
+            <div class="d-grid gap-2 d-md-flex xpad">
+              <form method='POST'>{% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-dark">update section name</button>
+                  <button class="btn btn-light " onClick="history.go(0);">cancel</button>
+                </form>
+            </div>
+        </div>
+</div>
+
+{% endblock %}

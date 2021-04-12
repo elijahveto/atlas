@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+        <div class="sidenav" id="superuser">
+            {% for section in sections %}
+            <a href="">{{ section.name }}</a>
+            <div class="d-grid gap-2 d-md-flex xpad">
+                    <form action="{% url 'posts:section-update' pk=section.id %}" method="GET">{% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-link-comments">edit section</button>
+                    </form>
+
+                    <form action="{% url 'posts:section-delete' pk=section.id %}" method="GET">{% csrf_token %}
+                           <button type="submit" class="btn btn-sm btn-link-comments ">delete section</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="company-check">
+    <form action="." method="post"> {% csrf_token %}
+        <p>{{ company.name }} has no manager yet. Managers have permission to modify and delete sections.<br>
+        Should we set you as the manager?</p>
+
+        <input type="hidden" name="answer" value="{{company.id}}"/>
+        <input type="hidden" name="user" value="{{user.id}}"/>
+
+        <button class="btn btn-dark superuser" type="submit">accept</button>
+        <button class="btn btn-light superuser"  type="button"><a id="decline" href="/posts">decline</a></button>
+
+    </form>
+</div>
+{% endblock %}

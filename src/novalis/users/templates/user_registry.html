@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+    {% if company_registered %}
+
+    <p class="company-check">{{ company.name|title }} is already using Atlas. Register to access company knowledge.</p>
+
+    {% elif company %}
+
+    <p class="company-check">{{ company.name|title }} has now access to Atlas.</p>
+
+    {% endif %}
+
+<form class="center-form" method='POST'>{% csrf_token %}
+
+    {% for field in user_form %}
+
+    {{ field|add_class:"form-control"|add_class:"form-control:focus"|as_crispy_field }}
+
+    {% endfor %}
+    <input type='hidden' name="company_id" value={{company.id}} />
+    <input type='hidden' name="userform" value="submitted" />
+    <button type="submit" class="btn btn-dark">add me to database</button>
+</form>
+
+
+{% endblock %}
