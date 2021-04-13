@@ -1,1 +1,1 @@
-web: sh -c 'cd [server_configs]/[qa] && gunicorn django.wsgi:application'
+gunicorn $WSGI_PATH:application
