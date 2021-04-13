@@ -1,1 +1,1 @@
-web: gunicorn --chdir src --chdir novalis novalis.wsgi --log-file -
+web: sh -c 'cd [server_configs]/[qa] && gunicorn django.wsgi:application'
