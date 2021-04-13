@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('atlasappkey')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'lit-waters-05102.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'atlasnovalis.herokuapp.com']
 
 
 # Application definition
