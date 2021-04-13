@@ -1,1 +1,1 @@
-web: gunicorn --chdir src novalis.wsgi --log-file -
+web: gunicorn --chdir src --chdir novalis novalis.wsgi --log-file -
