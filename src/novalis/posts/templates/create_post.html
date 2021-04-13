@@ -8,7 +8,9 @@
 {% endblock %}
 
 {% block content %}
-<script>
+
+<div class="container">
+    <script>
    tinymce.init({
         selector: 'textarea',
         menubar: false,
@@ -24,9 +26,8 @@
                   editor.save();
               });
           },
-<!--        images_upload_handler: function (blobInfo, success, failure) {-->
-<!--            success('http://moxiecode.cachefly.net/tinymce/v9/images/logo.png');-->
-<!--        },-->
+
+
 file_picker_callback: function (cb, value, meta) {
     var input = document.createElement('input');
     input.setAttribute('type', 'file');
@@ -64,9 +65,9 @@ file_picker_callback: function (cb, value, meta) {
       input.click();
   },
   });
+
 </script>
-<div class="container">
-        <div class="sidenav" >
+    <div class="sidenav" >
             {% for item in sections %}
             {% if item.id == section.id %}
                 <a style="color: #f1f1f1" href={{ section.get_absolute_url }}>{{ item.name }}</a>
