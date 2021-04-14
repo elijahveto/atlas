@@ -1,1 +1,1 @@
-gunicorn $WSGI_PATH:application
+web: gunicorn [src].[server_configs].[novalis].wsgi:application
