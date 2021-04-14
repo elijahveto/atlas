@@ -1,1 +1,1 @@
-web: gunicorn [src].[server_configs].[novalis].wsgi:application
+web: gunicorn [src].[novalis].wsgi:application
