@@ -1,1 +1,1 @@
-web: sh -c 'cd src/novalis/novalis && exec gunicorn mysite.wsgi --log-file -'
+web: gunicorn [src].[novalis].novalis.wsgi --log-file -
