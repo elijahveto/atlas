@@ -1,1 +1,1 @@
-web: sh -c 'cd [src]/[novalis] && gunicorn novalis.wsgi:application'
+web: sh -c 'cd [src]/[novalis]/[novalis] && gunicorn wsgi.py:application'
