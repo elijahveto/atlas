@@ -1,1 +1,1 @@
-web: gunicorn novalis.wsgi --log-file -
+web: gunicorn src.novalis.novalis.wsgi --log-file -
